@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initialization.then((value){
+  await initialization.then((value) {
     Get.put(AppController());
     Get.put(AuthController());
   });
@@ -35,6 +35,3 @@ class Splash extends StatelessWidget {
     );
   }
 }
-
-
-
