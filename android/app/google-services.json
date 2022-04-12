@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "141625150617",
-    "project_id": "cadevo-59ab7",
-    "storage_bucket": "cadevo-59ab7.appspot.com"
+    "project_number": "1012962891926",
+    "project_id": "getx-test-6a5ec",
+    "storage_bucket": "getx-test-6a5ec.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:141625150617:android:0232d3b56535a70d0b3c08",
+        "mobilesdk_app_id": "1:1012962891926:android:e4f83b9a2f4695d180cab7",
         "android_client_info": {
-          "package_name": "com.santosenoque.cadevo"
+          "package_name": "com.idrees.cadevo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "141625150617-lnm8m3ag9g7045timv23ssmqm1v03kp7.apps.googleusercontent.com",
+          "client_id": "1012962891926-4otg9v681qiq2tk4vgessts20bn9lb9s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCePDl6DEDmQVU3swhQSmDZvEaqQwDSf6o"
+          "current_key": "AIzaSyAWaBJmpeW-yYvSGibM8ByKcsp5oRESBg0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "141625150617-lnm8m3ag9g7045timv23ssmqm1v03kp7.apps.googleusercontent.com",
+              "client_id": "1012962891926-4otg9v681qiq2tk4vgessts20bn9lb9s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
