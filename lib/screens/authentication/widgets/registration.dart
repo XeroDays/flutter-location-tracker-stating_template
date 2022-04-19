@@ -1,12 +1,14 @@
+import 'package:cadevo/controllers/authController.dart';
 import 'package:cadevo/screens/home/home.dart';
 import 'package:cadevo/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegistrationWidget extends StatelessWidget {
+  AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: Colors.white,
@@ -14,11 +16,9 @@ class RegistrationWidget extends StatelessWidget {
             BoxShadow(
               color: Colors.grey.withOpacity(.5),
               blurRadius: 10,
-
             )
           ],
-          borderRadius: BorderRadius.circular(20)
-      ),
+          borderRadius: BorderRadius.circular(20)),
       child: Wrap(
         children: [
           Row(
@@ -32,9 +32,10 @@ class RegistrationWidget extends StatelessWidget {
                   color: Colors.grey.withOpacity(.3),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TextField(
-                    controller: null,
+                    controller: authController.txtName,
                     decoration: InputDecoration(
                         icon: Icon(Icons.person),
                         fillColor: Colors.white,
@@ -56,9 +57,10 @@ class RegistrationWidget extends StatelessWidget {
                   color: Colors.grey.withOpacity(.3),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TextField(
-                    controller: null,
+                    controller: authController.txtEmail,
                     decoration: InputDecoration(
                         icon: Icon(Icons.email_outlined),
                         fillColor: Colors.white,
@@ -69,7 +71,6 @@ class RegistrationWidget extends StatelessWidget {
               ),
             ],
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -81,9 +82,10 @@ class RegistrationWidget extends StatelessWidget {
                   color: Colors.grey.withOpacity(.3),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TextField(
-                    controller: null,
+                    controller: authController.txtPassword,
                     decoration: InputDecoration(
                         icon: Icon(Icons.lock),
                         fillColor: Colors.white,
@@ -98,9 +100,9 @@ class RegistrationWidget extends StatelessWidget {
             padding: const EdgeInsets.all(25),
             child: CustomButton(
                 bgColor: Colors.blue.shade700,
-                text: "Register", onTap: (){
-                                    Get.to(HomeScreen());
-
+                text: "Register",
+                onTap: () async {
+                  await authController.signUp();
                 }),
           )
         ],

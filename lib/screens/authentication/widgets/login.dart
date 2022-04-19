@@ -1,8 +1,11 @@
-import 'package:cadevo/constants/controllers.dart';
+import 'package:cadevo/controllers/authController.dart';
+import 'package:cadevo/screens/home/home.dart';
 import 'package:cadevo/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class LoginWidget extends StatelessWidget {
+  AuthController authController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,7 +60,7 @@ class LoginWidget extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TextField(
-                    controller: authController.txtpassword,
+                    controller: authController.txtPassword,
                     decoration: InputDecoration(
                         icon: Icon(Icons.lock),
                         fillColor: Colors.white,
@@ -74,7 +77,7 @@ class LoginWidget extends StatelessWidget {
                 bgColor: Colors.blue.shade700,
                 text: "Login",
                 onTap: () {
-                  authController.singIn();
+                  authController.signInUser();
                 }),
           )
         ],

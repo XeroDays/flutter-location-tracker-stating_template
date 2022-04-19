@@ -1,9 +1,9 @@
 import 'package:cadevo/constants/firebase.dart';
-import 'package:cadevo/models/user.dart';
 import 'package:cadevo/screens/authentication/auth.dart';
 import 'package:cadevo/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -16,75 +16,76 @@ class AuthController extends GetxController {
   TextEditingController txtpassword = TextEditingController();
   TextEditingController txtname = TextEditingController();
 
+  TextEditingController txtName = TextEditingController();
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
+
+  Rx<User> firebaseUser;
+
   @override
   void onReady() {
-    super.onReady();
     firebaseUser = Rx<User>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());
-
-    ever(firebaseUser, (s) {
-      _setInitialScreen();
+    ever(firebaseUser, (user) {
+      _setInitialScreen(user);
     });
+    super.onReady();
   }
 
-  _setInitialScreen() {
-    if (!isLoggedIn.value) {
+  _setInitialScreen(User user) {
+    if (user == null) {
       Get.offAll(() => AuthenticationScreen());
     } else {
       Get.offAll(() => HomeScreen());
     }
   }
 
-  singIn() async {
+  Widget circular() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  signInUser() async {
+    Get.dialog(circular(), barrierDismissible: false);
+    String email = txtEmail.text.trim();
+    String password = txtPassword.text;
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+    } catch (e) {
+      Get.back();
+      Get.snackbar("Authentication Error", "Invalid Email or Password");
+    }
+  }
+
+  signOut() async {
+    await auth.signOut();
+  }
+
+  signUp() async {
+    Get.dialog(circular(), barrierDismissible: false);
+    String name = txtName.text.trim();
+    String email = txtEmail.text.trim();
+    String password = txtPassword.text;
     try {
       await auth
-          .signInWithEmailAndPassword(
-              email: txtEmail.text.trim(), password: txtpassword.text)
-          .then((value) {
-        initUserModel(value.user.uid);
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) async {
+        Map<String, dynamic> mapp = {
+          "UID": value.user.uid,
+          "Name": name,
+          "Email": email,
+          "Password": password,
+        };
+
+        await firebaseFirestore
+            .collection(userCollection)
+            .doc(value.user.uid)
+            .set(mapp);
       });
     } catch (e) {
-      Get.snackbar("Sign-In Failed", "Invalid Credentials");
+      Get.back();
+      Get.snackbar("REgistration Failed", e.toString());
     }
-  }
-
-  singOut() async {
-    try {
-      await auth.signOut();
-    } catch (e) {
-      Get.snackbar("Sign-out Failed", "Something went wrong!");
-    }
-  }
-
-  singUp() async {
-    try {
-      await auth
-          .createUserWithEmailAndPassword(
-              email: txtEmail.text.trim(), password: txtpassword.text)
-          .then((value) => () {
-                String userID = value.user.uid;
-                Map<String, dynamic> map = <String, dynamic>{
-                  "Name": txtname.text.trim(),
-                  "Email": txtEmail.text.trim(),
-                  "Password": txtpassword.text.trim(),
-                };
-
-                firebaseFirestore
-                    .collection(userCollection)
-                    .doc(userID)
-                    .set(map);
-                initUserModel(userID);
-              });
-    } catch (e) {
-      Get.snackbar("Registration Failed", "Something went Wrong");
-    }
-  }
-
-  initUserModel(String uid) async {
-    userModel.value = await firebaseFirestore
-        .collection(userCollection)
-        .doc(uid)
-        .get()
-        .then((value) => UserModel.fromSnapshot(value));
   }
 }

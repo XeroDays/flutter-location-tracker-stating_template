@@ -8,4 +8,4 @@ FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseMessaging fcm = FirebaseMessaging.instance;
 
-final String userCollection = "users";
+final String userCollection = "Users";
