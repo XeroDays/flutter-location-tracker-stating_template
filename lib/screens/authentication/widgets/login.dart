@@ -1,24 +1,21 @@
-import 'package:cadevo/screens/home/home.dart';
+import 'package:cadevo/constants/controllers.dart';
 import 'package:cadevo/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class LoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white,
-boxShadow: [
-  BoxShadow(
-    color: Colors.grey.withOpacity(.5),
-    blurRadius: 10,
-
-  )
-],
-borderRadius: BorderRadius.circular(20)
-      ),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(.5),
+              blurRadius: 10,
+            )
+          ],
+          borderRadius: BorderRadius.circular(20)),
       child: Wrap(
         children: [
           Row(
@@ -32,9 +29,10 @@ borderRadius: BorderRadius.circular(20)
                   color: Colors.grey.withOpacity(.3),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TextField(
-                    controller: null,
+                    controller: authController.txtEmail,
                     decoration: InputDecoration(
                         icon: Icon(Icons.email_outlined),
                         fillColor: Colors.white,
@@ -56,9 +54,10 @@ borderRadius: BorderRadius.circular(20)
                   color: Colors.grey.withOpacity(.3),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   child: TextField(
-                    controller: null,
+                    controller: authController.txtpassword,
                     decoration: InputDecoration(
                         icon: Icon(Icons.lock),
                         fillColor: Colors.white,
@@ -73,9 +72,10 @@ borderRadius: BorderRadius.circular(20)
             padding: const EdgeInsets.all(25),
             child: CustomButton(
                 bgColor: Colors.blue.shade700,
-                text: "Login", onTap: (){
-                  Get.to(HomeScreen());
-            }),
+                text: "Login",
+                onTap: () {
+                  authController.singIn();
+                }),
           )
         ],
       ),
